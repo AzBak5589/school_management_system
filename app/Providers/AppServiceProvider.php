@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Contracts\Foundation\MaintenanceMode;
+use Illuminate\Foundation\MaintenanceMode as LaravelMaintenanceMode;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(
+            MaintenanceMode::class, 
+            LaravelMaintenanceMode::class
+        );
     }
 
     /**
