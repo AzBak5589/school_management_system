@@ -63,6 +63,9 @@
                                     <a href="{{ route('classes.students', $class->class_id) }}" class="btn btn-sm btn-info text-white">
                                         <i class="fas fa-users"></i> Students
                                     </a>
+                                    <a href="{{ route('classes.subjects.index', $class->class_id) }}" class="btn btn-sm btn-success text-white">
+                                        <i class="fas fa-book"></i> Subjects
+                                    </a>
                                     <a href="{{ route('classes.edit', $class->class_id) }}" class="btn btn-sm btn-primary">
                                         <i class="fas fa-edit"></i>
                                     </a>

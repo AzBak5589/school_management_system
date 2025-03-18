@@ -97,7 +97,7 @@ class AdminController extends Controller
                 // Additional teacher fields
                 $request->validate([
                     'employee_id' => 'required|string|max:20|unique:teachers',
-                    'gender' => 'required|in:male,female,other',
+    'teacher_gender' => 'required|in:male,female,other',
                     'date_of_birth' => 'nullable|date',
                     'join_date' => 'required|date',
                     'qualification' => 'nullable|string|max:100',
@@ -105,7 +105,7 @@ class AdminController extends Controller
                 
                 $profileData = array_merge($profileData, [
                     'employee_id' => $request->employee_id,
-                    'gender' => $request->gender,
+                    'gender' => $request->teacher_gender,
                     'date_of_birth' => $request->date_of_birth,
                     'join_date' => $request->join_date,
                     'qualification' => $request->qualification,
@@ -116,7 +116,7 @@ class AdminController extends Controller
                 // Additional student fields
                 $request->validate([
                     'admission_number' => 'required|string|max:20|unique:students',
-                    'gender' => 'required|in:male,female,other',
+                    'student_gender' => 'required|in:male,female,other',
                     'date_of_birth' => 'required|date',
                     'admission_date' => 'required|date',
                     'emergency_contact_name' => 'nullable|string|max:100',
@@ -125,7 +125,7 @@ class AdminController extends Controller
                 
                 $profileData = array_merge($profileData, [
                     'admission_number' => $request->admission_number,
-                    'gender' => $request->gender,
+                    'gender' => $request->student_gender,
                     'date_of_birth' => $request->date_of_birth,
                     'admission_date' => $request->admission_date,
                     'emergency_contact_name' => $request->emergency_contact_name,

@@ -72,12 +72,17 @@
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <span><strong>Created On:</strong></span>
-                            <span>{{ $curriculumItem->created_at->format('M d, Y') }}</span>
+                            <span>{{ is_string($curriculumItem->created_at) ? $curriculumItem->created_at : $curriculumItem->created_at->format('M d, Y') }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <span><strong>Last Updated:</strong></span>
-                            <span>{{ $curriculumItem->updated_at->format('M d, Y') }}</span>
-                        </li>
+                            <span>{{ 
+                                $curriculumItem->updated_at 
+                                    ? (is_string($curriculumItem->updated_at) 
+                                        ? $curriculumItem->updated_at 
+                                        : $curriculumItem->updated_at->format('M d, Y')) 
+                                    : 'N/A' 
+                            }}</span>                        </li>
                     </ul>
                 </div>
             </div>

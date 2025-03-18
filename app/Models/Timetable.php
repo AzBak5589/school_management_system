@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Timetable extends Model
 {
+    public $timestamps = false;
     protected $table = 'timetable';
     protected $primaryKey = 'timetable_id';
     

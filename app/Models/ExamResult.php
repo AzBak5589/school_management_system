@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExamResult extends Model
 {
+    public $timestamps = false;
     protected $table = 'exam_results';
     protected $primaryKey = 'result_id';
     

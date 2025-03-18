@@ -149,6 +149,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/attendance/teacher', [TeacherAttendanceController::class, 'index'])->name('teacher.attendance.index');
     Route::post('/attendance/teacher', [TeacherAttendanceController::class, 'store'])->name('teacher.attendance.store');
     Route::get('/attendance/teacher/report', [TeacherAttendanceController::class, 'report'])->name('teacher.attendance.report');
+    Route::get('/attendance/teacher/export', [TeacherAttendanceController::class, 'export'])->name('teacher.attendance.export');
+    Route::get('/attendance/teacher/print', [TeacherAttendanceController::class, 'print'])->name('teacher.attendance.print');
 });
 
 // Examination Routes
@@ -209,25 +211,32 @@ Route::middleware(['auth', 'role:admin'])->prefix('fees')->name('fees.')->group(
 });
 
 // Payment routes
-Route::middleware(['auth', 'role:admin'])->prefix('payments')->name('payments.')->group(function () {
-    Route::get('/', [PaymentController::class, 'index'])->name('index');
-    Route::get('/{id}', [PaymentController::class, 'show'])->name('show');
-    Route::get('/{id}/receipt', [PaymentController::class, 'receipt'])->name('receipt');
-    Route::get('/{id}/download-receipt', [PaymentController::class, 'downloadReceipt'])->name('download-receipt');
-    Route::get('/{id}/delete', [PaymentController::class, 'delete'])->name('delete');
-    Route::delete('/{id}', [PaymentController::class, 'destroy'])->name('destroy');
+Route::middleware(['auth', 'role:admin'])->prefix('fees')->name('fees.')->group(function () {
+    // Payments Index
+    Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
+    
+    // Payments Reports
+    Route::prefix('payments/reports')->name('payments.')->group(function () {
+        Route::get('/', [PaymentController::class, 'reports'])->name('reports');
+        Route::get('/export', [PaymentController::class, 'exportReport'])->name('export-report');
+        Route::get('/print', [PaymentController::class, 'printReport'])->name('print-report');
+        Route::get('/pdf', [PaymentController::class, 'pdfReport'])->name('pdf-report');
+    });
+
+    // Individual Payment Actions
+    Route::prefix('payments')->name('payments.')->group(function () {
+        Route::get('/{id}', [PaymentController::class, 'show'])->name('show');
+        Route::get('/{id}/receipt', [PaymentController::class, 'receipt'])->name('receipt');
+        Route::get('/{id}/download-receipt', [PaymentController::class, 'downloadReceipt'])->name('download-receipt');
+        Route::get('/{id}/delete', [PaymentController::class, 'delete'])->name('delete');
+        Route::delete('/{id}', [PaymentController::class, 'destroy'])->name('destroy');
+    });
 });
 
 // Keep these admin-prefixed routes for the remaining menu items
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    // Payment reports
-    Route::get('/payments/reports', [PaymentController::class, 'reports'])->name('payments.reports');
-    Route::get('/payments/reports/export', [PaymentController::class, 'exportReport'])->name('payments.export-report');
-    Route::get('/payments/reports/print', [PaymentController::class, 'printReport'])->name('payments.print-report');
-    Route::get('/payments/reports/pdf', [PaymentController::class, 'pdfReport'])->name('payments.pdf-report');
-    
+Route::middleware(['auth', 'role:admin'])->prefix('fees')->name('fees.')->group(function () {
     // Fee reminders
-    Route::prefix('fees/reminders')->name('fees.reminders.')->group(function () {
+    Route::prefix('reminders')->name('reminders.')->group(function () {
         Route::get('/', [FeeReminderController::class, 'index'])->name('index');
         Route::post('/send', [FeeReminderController::class, 'send'])->name('send');
         Route::get('/log', [FeeReminderController::class, 'log'])->name('log');
@@ -236,7 +245,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     });
     
     // Bulk Operations
-    Route::prefix('fees/bulk')->name('fees.bulk.')->group(function () {
+    Route::prefix('bulk')->name('bulk.')->group(function () {
         Route::get('/', [BulkFeeController::class, 'index'])->name('index');
         Route::post('/', [BulkFeeController::class, 'process'])->name('process');
         Route::get('/import', [BulkFeeController::class, 'importForm'])->name('import-form');
@@ -245,17 +254,17 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 });
 
 // Admin Payment Routes
-Route::middleware(['auth', 'role:admin'])->prefix('admin/payments')->name('admin.payments.')->group(function () {
-    Route::get('/', 'PaymentController@index')->name('index');
-    Route::get('/{id}', 'PaymentController@show')->name('show');
-    Route::get('/{id}/receipt', 'PaymentController@receipt')->name('receipt');
-    Route::get('/{id}/download-receipt', 'PaymentController@downloadReceipt')->name('download-receipt');
-    Route::get('/{id}/delete', 'PaymentController@delete')->name('delete');
-    Route::delete('/{id}', 'PaymentController@destroy')->name('destroy');
-    Route::get('/reports', 'PaymentController@reports')->name('reports');
-    Route::get('/reports/export', 'PaymentController@exportReport')->name('export-report');
-    Route::get('/reports/print', 'PaymentController@printReport')->name('print-report');
-    Route::get('/reports/pdf', 'PaymentController@pdfReport')->name('pdf-report');
+Route::middleware(['auth', 'role:admin'])->prefix('payments')->name('payments.')->group(function () {
+    Route::get('/', [App\Http\Controllers\PaymentController::class, 'index'])->name('index');
+    Route::get('/{id}', [App\Http\Controllers\PaymentController::class, 'show'])->name('show');
+    Route::get('/{id}/receipt', [App\Http\Controllers\PaymentController::class, 'receipt'])->name('receipt');
+    Route::get('/{id}/download-receipt', [App\Http\Controllers\PaymentController::class, 'downloadReceipt'])->name('download-receipt');
+    Route::get('/{id}/delete', [App\Http\Controllers\PaymentController::class, 'delete'])->name('delete');
+    Route::delete('/{id}', [App\Http\Controllers\PaymentController::class, 'destroy'])->name('destroy');
+    Route::get('/reports', [App\Http\Controllers\PaymentController::class, 'reports'])->name('reports');
+    Route::get('/reports/export', [App\Http\Controllers\PaymentController::class, 'exportReport'])->name('export-report');
+    Route::get('/reports/print', [App\Http\Controllers\PaymentController::class, 'printReport'])->name('print-report');
+    Route::get('/reports/pdf', [App\Http\Controllers\PaymentController::class, 'pdfReport'])->name('pdf-report');
 });
 
 // Student Fee Routes
@@ -272,3 +281,4 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin/students')->name('admin
     Route::get('/{id}/fee-statement', 'StudentController@feeStatement')->name('fee-statement');
     Route::get('/{id}/payment-history', 'StudentController@paymentHistory')->name('payment-history');
 });
+Route::get('fees/bulk/download-template', [BulkFeeController::class, 'downloadTemplate'])->name('fees.bulk.download-template');

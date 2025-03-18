@@ -47,7 +47,7 @@ class FeeTypeController extends Controller
             'description' => $request->description,
         ]);
         
-        return redirect()->route('fee-types.index')
+        return redirect()->route('fees.types.index')
             ->with('success', 'Fee type created successfully');
     }
     

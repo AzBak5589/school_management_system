@@ -6,6 +6,8 @@ use App\Models\Payment;
 use App\Models\StudentFee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PaymentController extends Controller
 {
@@ -194,4 +196,65 @@ class PaymentController extends Controller
         return view('fees.payments.reports', compact('startDate', 'endDate', 'totalCollected', 
                                                     'paymentsByMethod', 'dailyTotals'));
     }
+    public function exportReport(Request $request)
+{
+    // Validate and prepare filter parameters
+    $startDate = $request->input('start_date', now()->startOfMonth()->format('Y-m-d'));
+    $endDate = $request->input('end_date', now()->format('Y-m-d'));
+    $paymentMethod = $request->input('payment_method');
+
+    // Query payments based on filters
+    $query = Payment::with(['studentFee.student', 'studentFee.feeStructure.feeType'])
+        ->whereBetween('payment_date', [$startDate, $endDate]);
+
+    if ($paymentMethod) {
+        $query->where('payment_method', $paymentMethod);
+    }
+
+    $payments = $query->get();
+
+    // Generate Excel export
+    return Excel::download(new PaymentExport($payments), 'payments_report_' . now()->format('YmdHis') . '.xlsx');
+}
+
+public function printReport(Request $request)
+{
+    // Similar query as exportReport
+    $startDate = $request->input('start_date', now()->startOfMonth()->format('Y-m-d'));
+    $endDate = $request->input('end_date', now()->format('Y-m-d'));
+    $paymentMethod = $request->input('payment_method');
+
+    $query = Payment::with(['studentFee.student', 'studentFee.feeStructure.feeType'])
+        ->whereBetween('payment_date', [$startDate, $endDate]);
+
+    if ($paymentMethod) {
+        $query->where('payment_method', $paymentMethod);
+    }
+
+    $payments = $query->get();
+
+    // Generate printable view
+    return view('fees.payments.print_report', compact('payments', 'startDate', 'endDate', 'paymentMethod'));
+}
+
+public function pdfReport(Request $request)
+{
+    // Similar query as exportReport
+    $startDate = $request->input('start_date', now()->startOfMonth()->format('Y-m-d'));
+    $endDate = $request->input('end_date', now()->format('Y-m-d'));
+    $paymentMethod = $request->input('payment_method');
+
+    $query = Payment::with(['studentFee.student', 'studentFee.feeStructure.feeType'])
+        ->whereBetween('payment_date', [$startDate, $endDate]);
+
+    if ($paymentMethod) {
+        $query->where('payment_method', $paymentMethod);
+    }
+
+    $payments = $query->get();
+
+    // Generate PDF
+    $pdf = PDF::loadView('fees.payments.pdf_report', compact('payments', 'startDate', 'endDate', 'paymentMethod'));
+    return $pdf->download('payments_report_' . now()->format('YmdHis') . '.pdf');
+}
 }

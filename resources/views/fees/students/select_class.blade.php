@@ -23,7 +23,7 @@
                                     <div class="card-body text-center">
                                         <h5>{{ $class->class_name }}</h5>
                                         <p>Section: {{ $class->section }}</p>
-                                        <a href="{{ route('student-fees.index', ['class_id' => $class->class_id]) }}" class="btn btn-primary">
+                                        <a href="{{ route('fees.students.index', ['class_id' => $class->class_id]) }}" class="btn btn-primary">
                                             Manage Fees
                                         </a>
                                     </div>

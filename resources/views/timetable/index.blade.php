@@ -52,8 +52,15 @@
                                     </th>
                                 </tr>
                                 
-                                @if(isset($timetableByDay[$day]) && count($timetableByDay[$day]) > 0)
-                                    @foreach($timetableByDay[$day] as $entry)
+                                @if((isset($timetableByDay[$day]) && count($timetableByDay[$day]) > 0) || 
+                                    (isset($timetableByDay[strval($day)]) && count($timetableByDay[strval($day)]) > 0) ||
+                                    (isset($timetableByDay[$dayNames[$day-1]]) && count($timetableByDay[$dayNames[$day-1]]) > 0))
+                                    @php
+                                        $entries = isset($timetableByDay[$day]) ? $timetableByDay[$day] : 
+                                                (isset($timetableByDay[strval($day)]) ? $timetableByDay[strval($day)] : 
+                                                $timetableByDay[$dayNames[$day-1]]);
+                                    @endphp
+                                    @foreach($entries as $entry)
                                         <tr>
                                             <td>{{ $entry->start_time->format('h:i A') }} - {{ $entry->end_time->format('h:i A') }}</td>
                                             <td>{{ $entry->classSubject->subject->subject_name }}</td>

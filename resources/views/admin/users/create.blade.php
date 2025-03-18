@@ -131,14 +131,14 @@
                     
                     <div class="row mb-3">
                         <div class="col-md-4">
-                            <label for="gender" class="form-label">Gender *</label>
-                            <select class="form-select @error('gender') is-invalid @enderror" id="gender" name="gender">
+                            <label for="teacher_gender" class="form-label">Gender *</label>
+                            <select class="form-select @error('gender') is-invalid @enderror" id="teacher_gender" name="teacher_gender">
                                 <option value="">Select Gender</option>
-                                <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
-                                <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
-                                <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Other</option>
+                                <option value="male" {{ old('teacher_gender') == 'male' ? 'selected' : '' }}>Male</option>
+                                <option value="female" {{ old('teacher_gender') == 'female' ? 'selected' : '' }}>Female</option>
+                                <option value="other" {{ old('teacher_gender') == 'other' ? 'selected' : '' }}>Other</option>
                             </select>
-                            @error('gender')
+                            @error('teacher_gender')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -185,14 +185,14 @@
                     
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="gender" class="form-label">Gender *</label>
-                            <select class="form-select @error('gender') is-invalid @enderror" id="gender" name="gender">
+                            <label for="student_gender" class="form-label">Gender *</label>
+                            <select class="form-select @error('gender') is-invalid @enderror" id="student_gender" name="student_gender">
                                 <option value="">Select Gender</option>
-                                <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
-                                <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
-                                <option value="other" {{ old('gender') == 'other' ? 'selected' : '' }}>Other</option>
+                                <option value="male" {{ old('student_gender') == 'male' ? 'selected' : '' }}>Male</option>
+                                <option value="female" {{ old('student_gender') == 'female' ? 'selected' : '' }}>Female</option>
+                                <option value="other" {{ old('student_gender') == 'other' ? 'selected' : '' }}>Other</option>
                             </select>
-                            @error('gender')
+                            @error('student_gender')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -234,31 +234,35 @@
     </div>
 </div>
 
-@section('scripts')
+
+@endsection
+@push('scripts')
 <script>
     // Show/hide role-specific fields based on selected role
-    document.getElementById('role').addEventListener('change', function() {
-        const role = this.value;
+    document.addEventListener('DOMContentLoaded', function() {
+        const roleSelect = document.getElementById('role');
         
-        // Hide all role-specific fields
-        document.querySelectorAll('.role-fields').forEach(el => {
-            el.style.display = 'none';
-        });
-        
-        // Show fields for the selected role
-        if (role === 'teacher') {
-            document.getElementById('teacher-fields').style.display = 'block';
-        } else if (role === 'student') {
-            document.getElementById('student-fields').style.display = 'block';
+        function toggleFields() {
+            const role = roleSelect.value;
+            
+            // Hide all role-specific fields
+            document.querySelectorAll('.role-fields').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Show fields for the selected role
+            if (role === 'teacher') {
+                document.getElementById('teacher-fields').style.display = 'block';
+            } else if (role === 'student') {
+                document.getElementById('student-fields').style.display = 'block';
+            }
         }
+        
+        // Add change event listener
+        roleSelect.addEventListener('change', toggleFields);
+        
+        // Trigger on page load
+        toggleFields();
     });
-    
-    // Trigger change event on page load to handle initial state
-    const roleSelect = document.getElementById('role');
-    if (roleSelect.value) {
-        const event = new Event('change');
-        roleSelect.dispatchEvent(event);
-    }
 </script>
-@endsection
-@endsection
+@endpush

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Classes extends Model
 {
+    public $timestamps = false;
+
     protected $table = 'classes';
     protected $primaryKey = 'class_id';
     

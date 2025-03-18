@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Curriculum extends Model
 {
+    public $timestamps = false;
     protected $table = 'curriculum';
     protected $primaryKey = 'curriculum_id';
     
@@ -16,6 +17,7 @@ class Curriculum extends Model
         'resource_link',
         'created_by',
     ];
+    
     
     public function classSubject()
     {

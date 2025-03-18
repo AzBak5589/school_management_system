@@ -11,7 +11,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Payment Records</h3>
                     <div class="card-tools">
-                        <a href="{{ route('admin.payments.reports') }}" class="btn btn-info btn-sm mr-2">
+                        <a href="{{ route('fees.payments.reports') }}" class="btn btn-info btn-sm mr-2">
                             <i class="fas fa-chart-bar"></i> Payment Reports
                         </a>
                     </div>

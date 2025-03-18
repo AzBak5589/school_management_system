@@ -85,10 +85,11 @@
                                 <i class="fas fa-angle-down"></i>
                             </a>
                             <div class="collapse {{ request()->routeIs('academic-years*') || request()->routeIs('classes*') || request()->routeIs('subjects*') ? 'show' : '' }}" id="academicSubmenu">
-                                <a href="{{ route('academic-years.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->routeIs('academic-years*') ? 'active' : '' }}">Academic Years</a>
-                                <a href="{{ route('classes.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->routeIs('classes*') ? 'active' : '' }}">Classes</a>
-                                <a href="{{ route('subjects.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->routeIs('subjects*') ? 'active' : '' }}">Subjects</a>
-                            </div>
+    <a href="{{ route('academic-years.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->routeIs('academic-years*') ? 'active' : '' }}">Academic Years</a>
+    <a href="{{ route('classes.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->routeIs('classes*') && !request()->routeIs('classes.subjects*') ? 'active' : '' }}">Classes</a>
+    <a href="{{ route('subjects.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->routeIs('subjects*') ? 'active' : '' }}">Subjects</a>
+    <a href="{{ route('classes.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->routeIs('classes.subjects*') ? 'active' : '' }}">Subject Assignments</a>
+</div>
                             
                             <!-- Curriculum & Timetable Section -->
                             <a href="#curriculumSubmenu" data-bs-toggle="collapse" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center {{ request()->routeIs('curriculum*') || request()->routeIs('timetable*') ? 'active' : '' }}">
@@ -122,9 +123,9 @@
                                 <a href="{{ route('fees.structures.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->is('fees/structures*') ? 'active' : '' }}">Fee Structures</a>
                                 <a href="{{ route('fees.students.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->is('fees/students') ? 'active' : '' }}">Student Fees</a>
                                 <a href="{{ route('payments.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->is('payments') ? 'active' : '' }}">Payment Records</a>
-                                <a href="{{ route('admin.payments.reports') }}" class="list-group-item list-group-item-action ps-4 {{ request()->is('admin/payments/reports') ? 'active' : '' }}">Fee Reports</a>
-                                <a href="{{ route('admin.fees.reminders.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->is('admin/fees/reminders*') ? 'active' : '' }}">Fee Reminders</a>
-                                <a href="{{ route('admin.fees.bulk.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->is('admin/fees/bulk*') ? 'active' : '' }}">Bulk Operations</a>
+                                <a href="{{ route('fees.payments.reports') }}" class="list-group-item list-group-item-action ps-4 {{ request()->is('fees/reports') ? 'active' : '' }}">Fee Reports</a>
+                                <a href="{{ route('fees.reminders.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->is('fees/reminders*') ? 'active' : '' }}">Fee Reminders</a>
+                                <a href="{{ route('fees.bulk.index') }}" class="list-group-item list-group-item-action ps-4 {{ request()->is('fees/bulk*') ? 'active' : '' }}">Bulk Operations</a>
                             </div>
                         @endif
 

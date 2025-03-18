@@ -14,3 +14,11 @@ protected $middlewareAliases = [
     'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     'role' => \App\Http\Middleware\CheckRole::class,
 ];
+protected $middlewareGroups = [
+    'web' => [
+        // ...
+        \App\Http\Middleware\VerifyCsrfToken::class,
+        // ...
+    ],
+    // ...
+];

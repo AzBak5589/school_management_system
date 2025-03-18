@@ -188,7 +188,7 @@ class ExaminationController extends Controller
         $request->validate([
             'class_id' => 'required|exists:classes,class_id',
             'subject_id' => 'required|exists:subjects,subject_id',
-            'exam_date' => 'required|date|between:' . $examination->start_date->format('Y-m-d') . ',' . $examination->end_date->format('Y-m-d'),
+    'exam_date' => 'required|date|after_or_equal:' . $examination->start_date->format('Y-m-d') . '|before_or_equal:' . $examination->end_date->format('Y-m-d'),
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
             'room' => 'nullable|string|max:50',
@@ -263,7 +263,7 @@ class ExaminationController extends Controller
         $request->validate([
             'class_id' => 'required|exists:classes,class_id',
             'subject_id' => 'required|exists:subjects,subject_id',
-            'exam_date' => 'required|date|between:' . $examination->start_date->format('Y-m-d') . ',' . $examination->end_date->format('Y-m-d'),
+    'exam_date' => 'required|date|after_or_equal:' . $examination->start_date->format('Y-m-d') . '|before_or_equal:' . $examination->end_date->format('Y-m-d'),
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
             'room' => 'nullable|string|max:50',

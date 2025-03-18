@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class AcademicYear extends Model
 {
+    public $timestamps = false;
+
     protected $table = 'academic_years';
     protected $primaryKey = 'academic_year_id';
     

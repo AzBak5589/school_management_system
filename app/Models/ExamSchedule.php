@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExamSchedule extends Model
 {
+    public $timestamps = false;
     protected $table = 'exam_schedules';
     protected $primaryKey = 'schedule_id';
     

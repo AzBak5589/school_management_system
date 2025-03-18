@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ClassSubject extends Model
 {
+    public $timestamps = false;
+
     protected $table = 'class_subjects';
     protected $primaryKey = 'class_subject_id';
     

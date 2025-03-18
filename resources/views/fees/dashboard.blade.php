@@ -161,13 +161,13 @@
         <a href="{{ route('fees.students.index') }}" class="list-group-item list-group-item-action">
             <i class="fas fa-users mr-2"></i> Student Fees
         </a>
-        <a href="{{ route('payments.index') }}" class="list-group-item list-group-item-action">
+        <a href="{{ route('fees.payments.index') }}" class="list-group-item list-group-item-action">
             <i class="fas fa-money-check-alt mr-2"></i> Payment Records
         </a>
-        <a href="{{ route('admin.payments.reports') }}" class="list-group-item list-group-item-action">
+        <a href="{{ route('fees.payments.reports') }}" class="list-group-item list-group-item-action">
             <i class="fas fa-chart-bar mr-2"></i> Reports & Analytics
         </a>
-        <a href="{{ route('admin.fees.reminders.index') }}" class="list-group-item list-group-item-action">
+        <a href="{{ route('fees.reminders.index') }}" class="list-group-item list-group-item-action">
             <i class="fas fa-bell mr-2"></i> Send Fee Reminders
         </a>
     </div>

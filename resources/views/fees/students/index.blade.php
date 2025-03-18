@@ -12,20 +12,20 @@
                     <h3 class="card-title">Student Fees - {{ $class->class_name }} {{ $class->section }}</h3>
                     <div class="card-tools">
                         <div class="btn-group">
-                            <a href="{{ route('student-fees.index', ['class_id' => $class->class_id, 'status' => 'all']) }}" class="btn btn-sm {{ $status == 'all' ? 'btn-primary' : 'btn-default' }}">
+                            <a href="{{ route('student_fees.index', ['class_id' => $class->class_id, 'status' => 'all']) }}" class="btn btn-sm {{ $status == 'all' ? 'btn-primary' : 'btn-default' }}">
                                 All
                             </a>
-                            <a href="{{ route('student-fees.index', ['class_id' => $class->class_id, 'status' => 'unpaid']) }}" class="btn btn-sm {{ $status == 'unpaid' ? 'btn-primary' : 'btn-default' }}">
+                            <a href="{{ route('student_fees.index', ['class_id' => $class->class_id, 'status' => 'unpaid']) }}" class="btn btn-sm {{ $status == 'unpaid' ? 'btn-primary' : 'btn-default' }}">
                                 Unpaid
                             </a>
-                            <a href="{{ route('student-fees.index', ['class_id' => $class->class_id, 'status' => 'partially_paid']) }}" class="btn btn-sm {{ $status == 'partially_paid' ? 'btn-primary' : 'btn-default' }}">
+                            <a href="{{ route('student_fees.index', ['class_id' => $class->class_id, 'status' => 'partially_paid']) }}" class="btn btn-sm {{ $status == 'partially_paid' ? 'btn-primary' : 'btn-default' }}">
                                 Partially Paid
                             </a>
-                            <a href="{{ route('student-fees.index', ['class_id' => $class->class_id, 'status' => 'paid']) }}" class="btn btn-sm {{ $status == 'paid' ? 'btn-primary' : 'btn-default' }}">
+                            <a href="{{ route('student_fees.index', ['class_id' => $class->class_id, 'status' => 'paid']) }}" class="btn btn-sm {{ $status == 'paid' ? 'btn-primary' : 'btn-default' }}">
                                 Paid
                             </a>
                         </div>
-                        <a href="{{ route('student-fees.index') }}" class="btn btn-default btn-sm ml-2">
+                        <a href="{{ route('fees.students.index') }}" class="btn btn-default btn-sm ml-2">
                             <i class="fas fa-arrow-left"></i> Back to Classes
                         </a>
                     </div>

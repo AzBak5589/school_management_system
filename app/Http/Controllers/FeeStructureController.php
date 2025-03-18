@@ -245,7 +245,7 @@ class FeeStructureController extends Controller
             }
         }
         
-        return redirect()->route('fee-structures.index', ['academic_year' => $feeStructure->academic_year_id])
+        return redirect()->route('fees.structures.index', ['academic_year' => $feeStructure->academic_year_id])
             ->with('success', "Fee applied to {$count} students successfully");
     }
 }
